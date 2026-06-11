@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cookie Clicker - Édition Infinie</title>
+    <title>Cookie Clicker - Giga Production</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -11,12 +11,12 @@
         :root {
             --bg-color: #f8fafc;
             --card-bg: #ffffff;
-            --accent-color: #8b5cf6;  /* Violet */
-            --cookie-color: #78350f;  /* Marron Cookie */
+            --accent-color: #ec4899;  /* Rose vif flashy */
+            --cookie-color: #78350f;
             --text-color: #0f172a;
             --secondary-text: #475569;
             --border-color: #e2e8f0;
-            --money-color: #059669;   /* Vert pour le coût */
+            --money-color: #059669;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,12 +32,11 @@
             overflow: hidden;
         }
 
-        /* Layout en Dashboard (3 colonnes / sections) */
         .dashboard {
             display: flex;
             width: 95%;
-            max-width: 1200px;
-            height: 85vh;
+            max-width: 1250px;
+            height: 90vh;
             background: var(--card-bg);
             border-radius: 32px;
             box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.08);
@@ -45,22 +44,22 @@
             overflow: hidden;
         }
 
-        /* SECTION GAUCHE : LE COOKIE TRÔNE */
+        /* SECTION GAUCHE */
         .cookie-section {
-            flex: 1.2;
+            flex: 1.1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 40px;
             border-right: 1px solid var(--border-color);
-            background: linear-gradient(135deg, #fef3c7 0%, #ffffff 100%);
+            background: linear-gradient(135deg, #fff1f2 0%, #ffffff 100%);
             position: relative;
         }
 
         .cookie-counter {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             z-index: 10;
         }
 
@@ -77,10 +76,9 @@
             margin-top: 5px;
         }
 
-        /* L'élément central cliquable */
         .big-cookie {
-            width: 260px;
-            height: 260px;
+            width: 250px;
+            height: 250px;
             background: radial-gradient(circle, #b45309 0%, #78350f 100%);
             border-radius: 50%;
             cursor: pointer;
@@ -94,7 +92,6 @@
             border: 8px solid #f59e0b;
         }
 
-        /* Pépites de chocolat */
         .big-cookie::before {
             content: '';
             position: absolute;
@@ -111,31 +108,20 @@
             border-radius: 50%;
         }
 
-        .big-cookie:active {
-            transform: scale(0.92);
-        }
+        .big-cookie:active { transform: scale(0.92); }
 
-        /* SECTION DROITE : LA BOUTIQUE D'AUTOMATISATION */
+        /* SECTION DROITE */
         .shop-section {
-            flex: 1.5;
+            flex: 1.6;
             display: flex;
             flex-direction: column;
             padding: 40px;
             background: #ffffff;
         }
 
-        .shop-header {
-            margin-bottom: 25px;
-        }
-
-        .shop-header h2 {
-            font-size: 32px;
-            font-weight: 800;
-        }
-
-        .shop-header h2 span {
-            color: var(--accent-color);
-        }
+        .shop-header { margin-bottom: 20px; }
+        .shop-header h2 { font-size: 32px; font-weight: 800; }
+        .shop-header h2 span { color: var(--accent-color); }
 
         .items-list {
             flex: 1;
@@ -143,45 +129,26 @@
             padding-right: 10px;
         }
 
-        /* Ligne d'une structure/item */
         .shop-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 20px;
+            padding: 16px 20px;
             background: var(--bg-color);
             border: 1px solid var(--border-color);
             border-radius: 20px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             transition: all 0.2s ease;
         }
 
-        .item-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .item-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-color);
-        }
-
-        .item-details {
-            font-size: 14px;
-            color: var(--secondary-text);
-        }
-
-        .item-cost {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--money-color);
-        }
+        .item-info { display: flex; flex-direction: column; gap: 2px; }
+        .item-title { font-size: 18px; font-weight: 700; color: var(--text-color); }
+        .item-details { font-size: 13px; color: var(--secondary-text); }
+        .item-cost { font-size: 16px; font-weight: 800; color: var(--money-color); margin-top: 2px; }
 
         .btn-buy {
-            padding: 12px 24px;
-            font-size: 15px;
+            padding: 10px 20px;
+            font-size: 14px;
             font-weight: 700;
             font-family: 'Urbanist', sans-serif;
             background-color: var(--accent-color);
@@ -193,20 +160,9 @@
             min-width: 110px;
         }
 
-        .btn-buy:disabled {
-            background-color: #e2e8f0;
-            color: #94a3b8;
-            cursor: not-allowed;
-        }
+        .btn-buy:disabled { background-color: #e2e8f0; color: #94a3b8; cursor: not-allowed; }
+        .item-count { font-size: 24px; font-weight: 900; color: #cbd5e1; margin-left: 15px; width: 45px; text-align: right; }
 
-        .item-count {
-            font-size: 24px;
-            font-weight: 900;
-            color: #cbd5e1;
-            margin-left: 15px;
-        }
-
-        /* Bouton de sauvegarde forcée */
         .btn-save {
             position: absolute;
             bottom: 20px;
@@ -224,6 +180,10 @@
 </head>
 <body>
 
+    <audio id="bg-music" loop>
+        <source src="musique.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="dashboard">
         
         <div class="cookie-section">
@@ -231,15 +191,13 @@
                 <h1 id="cookie-display">0</h1>
                 <p><span id="cps-display">0</span> cookies / sec</p>
             </div>
-
             <div class="big-cookie" onmousedown="clickCookie(event)"></div>
-
             <button class="btn-save" onclick="saveGame()">💾 Sauvegarder</button>
         </div>
 
         <div class="shop-section">
             <div class="shop-header">
-                <h2>Boutique de <span>Production</span></h2>
+                <h2>Boutique de <span>Giga Production</span></h2>
             </div>
 
             <div class="items-list">
@@ -247,7 +205,7 @@
                 <div class="shop-item">
                     <div class="item-info">
                         <div class="item-title">Super Doigt</div>
-                        <div class="item-details">Augmente la puissance de VOS clics (+1/clic).</div>
+                        <div class="item-details">Augmente la puissance de vos clics (+1/clic).</div>
                         <div class="item-cost" id="cost-click">15 🍪</div>
                     </div>
                     <div style="display: flex; align-items: center;">
@@ -283,7 +241,7 @@
                 <div class="shop-item">
                     <div class="item-info">
                         <div class="item-title">Méga Usine</div>
-                        <div class="item-details">Production industrielle de masse (+47 CPS).</div>
+                        <div class="item-details">Production industrielle en chaîne (+47 CPS).</div>
                         <div class="item-cost" id="cost-factory">12 000 🍪</div>
                     </div>
                     <div style="display: flex; align-items: center;">
@@ -294,13 +252,49 @@
 
                 <div class="shop-item">
                     <div class="item-info">
+                        <div class="item-title">Mine de Pépites</div>
+                        <div class="item-details">Extrait le pur chocolat de la Terre (+260 CPS).</div>
+                        <div class="item-cost" id="cost-mine">130 000 🍪</div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn-buy" id="buy-mine" onclick="buyUpgrade('mine')">Acheter</button>
+                        <div class="item-count" id="count-mine">0</div>
+                    </div>
+                </div>
+
+                <div class="shop-item">
+                    <div class="item-info">
                         <div class="item-title">Laboratoire Quantique</div>
-                        <div class="item-details">Alchimie pure moléculaire (+260 CPS).</div>
-                        <div class="item-cost" id="cost-lab">130 000 🍪</div>
+                        <div class="item-details">Alchimie pure moléculaire (+1 400 CPS).</div>
+                        <div class="item-cost" id="cost-lab">1 400 000 🍪</div>
                     </div>
                     <div style="display: flex; align-items: center;">
                         <button class="btn-buy" id="buy-lab" onclick="buyUpgrade('lab')">Acheter</button>
                         <div class="item-count" id="count-lab">0</div>
+                    </div>
+                </div>
+
+                <div class="shop-item">
+                    <div class="item-info">
+                        <div class="item-title">Portail Dimensionnel</div>
+                        <div class="item-details">Téléporte des cookies depuis le "CookieVerse" (+7 800 CPS).</div>
+                        <div class="item-cost" id="cost-portal">20 000 000 🍪</div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn-buy" id="buy-portal" onclick="buyUpgrade('portal')">Acheter</button>
+                        <div class="item-count" id="count-portal">0</div>
+                    </div>
+                </div>
+
+                <div class="shop-item">
+                    <div class="item-info">
+                        <div class="item-title">Machine Temporelle</div>
+                        <div class="item-details">Ramène des cookies du futur avant qu'ils soient mangés (+44 000 CPS).</div>
+                        <div class="item-cost" id="cost-time">330 000 000 🍪</div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn-buy" id="buy-time" onclick="buyUpgrade('time')">Acheter</button>
+                        <div class="item-count" id="count-time">0</div>
                     </div>
                 </div>
 
@@ -310,56 +304,50 @@
     </div>
 
     <script>
-        // --- BASE DE DONNÉES DU JEU ---
         let game = {
             cookies: 0,
             clickPower: 1,
-            
-            // Quantités possédées
-            upgrades: { click: 0, grandma: 0, farm: 0, factory: 0, lab: 0 },
-            
-            // Prix de base initiaux
-            prices: { click: 15, grandma: 100, farm: 1100, factory: 12000, lab: 130000 }
+            upgrades: { click: 0, grandma: 0, farm: 0, factory: 0, mine: 0, lab: 0, portal: 0, time: 0 },
+            prices: { click: 15, grandma: 100, farm: 1100, factory: 12000, mine: 130000, lab: 1400000, portal: 20000000, time: 330000000 }
         };
 
-        // Valeurs de production de chaque bâtiment
-        const productionValues = { grandma: 1, farm: 8, factory: 47, lab: 260 };
+        const productionValues = { grandma: 1, farm: 8, factory: 47, mine: 260, lab: 1400, portal: 7800, time: 44000 };
+        let musicStarted = false;
 
-        // --- CHARGEMENT DE LA SAUVEGARDE ---
         function loadGame() {
-            let saved = localStorage.getItem('infinite_cookie_save');
+            let saved = localStorage.getItem('infinite_cookie_save_v2');
             if (saved) {
                 let parsed = JSON.parse(saved);
-                // Sécurité pour intégrer d'anciennes versions au cas où
                 if(parsed.cookies !== undefined) game = parsed;
             }
             updateUI();
         }
 
-        // --- SAUVEGARDE AUTOMATIQUE ---
         function saveGame() {
-            localStorage.setItem('infinite_cookie_save', JSON.stringify(game));
+            localStorage.setItem('infinite_cookie_save_v2', JSON.stringify(game));
         }
 
-        // Sauvegarde automatique toutes les 15 secondes
         setInterval(saveGame, 15000);
 
-        // --- CALCUL DU CPS TOTAL (Cookies Par Seconde) ---
         function calculateCPS() {
             let totalCPS = 0;
-            totalCPS += game.upgrades.grandma * productionValues.grandma;
-            totalCPS += game.upgrades.farm * productionValues.farm;
-            totalCPS += game.upgrades.factory * productionValues.factory;
-            totalCPS += game.upgrades.lab * productionValues.lab;
+            for(let key in productionValues) {
+                totalCPS += game.upgrades[key] * productionValues[key];
+            }
             return totalCPS;
         }
 
-        // --- ACTION DE CLIC PHYSIQUE ---
         function clickCookie(e) {
+            // Lancer la musique au tout premier clic (sécurité navigateur)
+            if(!musicStarted) {
+                document.getElementById('bg-music').play().catch(err => {});
+                musicStarted = true;
+            }
+
             game.cookies += game.clickPower;
             document.getElementById('cookie-display').innerText = Math.floor(game.cookies).toLocaleString();
             
-            // Effet de texte volant (+X) à l'endroit du clic
+            // Effet volant (+X)
             let text = document.createElement('div');
             text.innerText = `+${game.clickPower}`;
             text.style.position = 'absolute';
@@ -383,26 +371,21 @@
             updateUI();
         }
 
-        // --- BOUCLE PRINCIPALE DE PRODUCTION PASSIVE (Toutes les secondes) ---
+        // Boucle de production (10 fois par seconde pour la fluidité)
         setInterval(() => {
             let cps = calculateCPS();
-            game.cookies += (cps / 10); // Divisé par 10 car la boucle tourne 10 fois par seconde (Fluidité)
-            
+            game.cookies += (cps / 10);
             document.getElementById('cookie-display').innerText = Math.floor(game.cookies).toLocaleString();
             updateUI();
         }, 100);
 
-        // --- LOGIQUE DE LA BOUTIQUE ---
         function buyUpgrade(type) {
             let cost = game.prices[type];
             if (game.cookies >= cost) {
                 game.cookies -= cost;
                 game.upgrades[type]++;
-                
-                // Formule officielle de Cookie Clicker : Le prix augmente de 15% à chaque achat !
                 game.prices[type] = Math.floor(cost * 1.15);
 
-                // Si c'est l'amélioration de clic manuel
                 if (type === 'click') {
                     game.clickPower++;
                 }
@@ -412,13 +395,10 @@
             }
         }
 
-        // --- RAFRAÎCHISSEMENT DE L'INTERFACE ---
         function updateUI() {
-            // Affichage principal
             document.getElementById('cookie-display').innerText = Math.floor(game.cookies).toLocaleString();
             document.getElementById('cps-display').innerText = calculateCPS().toLocaleString();
 
-            // Parcourir tous les items de la boutique pour mettre à jour les prix, totaux et boutons
             for (let type in game.upgrades) {
                 document.getElementById(`count-${type}`).innerText = game.upgrades[type];
                 document.getElementById(`cost-${type}`).innerText = game.prices[type].toLocaleString() + " 🍪";
@@ -426,7 +406,6 @@
             }
         }
 
-        // Initialisation au démarrage
         loadGame();
     </script>
 </body>
