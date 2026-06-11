@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Clicker - Édition Infinie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --accent-color: #8b5cf6;  /* Violet */
+            --cookie-color: #78350f;  /* Marron Cookie */
+            --text-color: #0f172a;
+            --secondary-text: #475569;
+            --border-color: #e2e8f0;
+            --money-color: #059669;   /* Vert pour le coût */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Urbanist', sans-serif;
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Layout en Dashboard (3 colonnes / sections) */
+        .dashboard {
+            display: flex;
+            width: 95%;
+            max-width: 1200px;
+            height: 85vh;
+            background: var(--card-bg);
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.08);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        /* SECTION GAUCHE : LE COOKIE TRÔNE */
+        .cookie-section {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            border-right: 1px solid var(--border-color);
+            background: linear-gradient(135deg, #fef3c7 0%, #ffffff 100%);
+            position: relative;
+        }
+
+        .cookie-counter {
+            text-align: center;
+            margin-bottom: 40px;
+            z-index: 10;
+        }
+
+        .cookie-counter h1 {
+            font-size: 54px;
+            font-weight: 900;
+            color: var(--cookie-color);
+        }
+
+        .cookie-counter p {
+            font-size: 18px;
+            color: var(--secondary-text);
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        /* L'élément central cliquable */
+        .big-cookie {
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, #b45309 0%, #78350f 100%);
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(120, 53, 15, 0.3);
+            transition: transform 0.05s ease;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 8px solid #f59e0b;
+        }
+
+        /* Pépites de chocolat */
+        .big-cookie::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle, #451a03 20%, transparent 20%),
+                radial-gradient(circle, #451a03 20%, transparent 20%),
+                radial-gradient(circle, #451a03 20%, transparent 20%),
+                radial-gradient(circle, #451a03 20%, transparent 20%);
+            background-size: 40px 40px;
+            background-position: 15px 15px, 55px 75px, 110px 30px, 150px 120px;
+            opacity: 0.7;
+            border-radius: 50%;
+        }
+
+        .big-cookie:active {
+            transform: scale(0.92);
+        }
+
+        /* SECTION DROITE : LA BOUTIQUE D'AUTOMATISATION */
+        .shop-section {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+            background: #ffffff;
+        }
+
+        .shop-header {
+            margin-bottom: 25px;
+        }
+
+        .shop-header h2 {
+            font-size: 32px;
+            font-weight: 800;
+        }
+
+        .shop-header h2 span {
+            color: var(--accent-color);
+        }
+
+        .items-list {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        /* Ligne d'une structure/item */
+        .shop-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            margin-bottom: 15px;
+            transition: all 0.2s ease;
+        }
+
+        .item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .item-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .item-details {
+            font-size: 14px;
+            color: var(--secondary-text);
+        }
+
+        .item-cost {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--money-color);
+        }
+
+        .btn-buy {
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: 'Urbanist', sans-serif;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 110px;
+        }
+
+        .btn-buy:disabled {
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .item-count {
+            font-size: 24px;
+            font-weight: 900;
+            color: #cbd5e1;
+            margin-left: 15px;
+        }
+
+        /* Bouton de sauvegarde forcée */
+        .btn-save {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            padding: 8px 16px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--secondary-text);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+        
+        <div class="cookie-section">
+            <div class="cookie-counter">
+                <h1 id="cookie-display">0</h1>
+                <p><span id="cps-display">0</span> cookies / sec</p>
+            </div>
+
+            <div class="big-cookie" onmousedown="clickCookie(event)"></div>
+
+            <button class="btn-save" onclick="saveGame()">💾 Sauvegarder</button>
+        </div>
+
+        <div class="shop-section">
+            <div class="shop-header">
+                <h2>Boutique de <span>Production</span></h2>
+            </div>
+
+            <div class="items-list">
+                
+                <div class="shop-item">
+                    <div class="item-info">
+                        <div class="item-title">Super Doigt</div>
+                        <div class="item-details">Augmente la puissance de VOS clics (+1/clic).</div>
+                        <div class="item-cost" id="cost-click">15 🍪</div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn-buy" id="buy-click" onclick="buyUpgrade('click')">Acheter</button>
+                        <div class="item-count" id="count-click">0</div>
+                    </div>
+                </div>
+
+                <div class="shop-item">
+                    <div class="item-info">
+                        <div class="item-title">Grand-mère dévouée</div>
+                        <div class="item-details">Cuit des cookies avec amour (+1 CPS).</div>
+                        <div class="item-cost" id="cost-grandma">100 🍪</div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn-buy" id="buy-grandma" onclick="buyUpgrade('grandma')">Acheter</button>
+                        <div class="item-count" id="count-grandma">0</div>
+                    </div>
+                </div>
+
+                <div class="shop-item">
+                    <div class="item-info">
+                        <div class="item-title">Ferme à Cookies</div>
+                        <div class="item-details">Fait pousser des arbres à pépites (+8 CPS).</div>
+                        <div class="item-cost" id="cost-farm">1 100 🍪</div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn-buy" id="buy-farm" onclick="buyUpgrade('farm')">Acheter</button>
+                        <div class="item-count" id="count-farm">0</div>
+                    </div>
+                </div>
+
+                <div class="shop-item">
+                    <div class="item-info">
+                        <div class="item-title">Méga Usine</div>
+                        <div class="item-details">Production industrielle de masse (+47 CPS).</div>
+                        <div class="item-cost" id="cost-factory">12 000 🍪</div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn-buy" id="buy-factory" onclick="buyUpgrade('factory')">Acheter</button>
+                        <div class="item-count" id="count-factory">0</div>
+                    </div>
+                </div>
+
+                <div class="shop-item">
+                    <div class="item-info">
+                        <div class="item-title">Laboratoire Quantique</div>
+                        <div class="item-details">Alchimie pure moléculaire (+260 CPS).</div>
+                        <div class="item-cost" id="cost-lab">130 000 🍪</div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn-buy" id="buy-lab" onclick="buyUpgrade('lab')">Acheter</button>
+                        <div class="item-count" id="count-lab">0</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- BASE DE DONNÉES DU JEU ---
+        let game = {
+            cookies: 0,
+            clickPower: 1,
+            
+            // Quantités possédées
+            upgrades: { click: 0, grandma: 0, farm: 0, factory: 0, lab: 0 },
+            
+            // Prix de base initiaux
+            prices: { click: 15, grandma: 100, farm: 1100, factory: 12000, lab: 130000 }
+        };
+
+        // Valeurs de production de chaque bâtiment
+        const productionValues = { grandma: 1, farm: 8, factory: 47, lab: 260 };
+
+        // --- CHARGEMENT DE LA SAUVEGARDE ---
+        function loadGame() {
+            let saved = localStorage.getItem('infinite_cookie_save');
+            if (saved) {
+                let parsed = JSON.parse(saved);
+                // Sécurité pour intégrer d'anciennes versions au cas où
+                if(parsed.cookies !== undefined) game = parsed;
+            }
+            updateUI();
+        }
+
+        // --- SAUVEGARDE AUTOMATIQUE ---
+        function saveGame() {
+            localStorage.setItem('infinite_cookie_save', JSON.stringify(game));
+        }
+
+        // Sauvegarde automatique toutes les 15 secondes
+        setInterval(saveGame, 15000);
+
+        // --- CALCUL DU CPS TOTAL (Cookies Par Seconde) ---
+        function calculateCPS() {
+            let totalCPS = 0;
+            totalCPS += game.upgrades.grandma * productionValues.grandma;
+            totalCPS += game.upgrades.farm * productionValues.farm;
+            totalCPS += game.upgrades.factory * productionValues.factory;
+            totalCPS += game.upgrades.lab * productionValues.lab;
+            return totalCPS;
+        }
+
+        // --- ACTION DE CLIC PHYSIQUE ---
+        function clickCookie(e) {
+            game.cookies += game.clickPower;
+            document.getElementById('cookie-display').innerText = Math.floor(game.cookies).toLocaleString();
+            
+            // Effet de texte volant (+X) à l'endroit du clic
+            let text = document.createElement('div');
+            text.innerText = `+${game.clickPower}`;
+            text.style.position = 'absolute';
+            text.style.left = e.clientX + 'px';
+            text.style.top = e.clientY + 'px';
+            text.style.fontSize = '24px';
+            text.style.fontWeight = '900';
+            text.style.color = 'var(--cookie-color)';
+            text.style.pointerEvents = 'none';
+            text.style.transition = 'all 0.8s ease-out';
+            text.style.transform = 'translate(-50%, -50%)';
+            text.style.zIndex = '100';
+            document.body.appendChild(text);
+
+            setTimeout(() => {
+                text.style.top = (e.clientY - 60) + 'px';
+                text.style.opacity = '0';
+            }, 10);
+            setTimeout(() => text.remove(), 800);
+
+            updateUI();
+        }
+
+        // --- BOUCLE PRINCIPALE DE PRODUCTION PASSIVE (Toutes les secondes) ---
+        setInterval(() => {
+            let cps = calculateCPS();
+            game.cookies += (cps / 10); // Divisé par 10 car la boucle tourne 10 fois par seconde (Fluidité)
+            
+            document.getElementById('cookie-display').innerText = Math.floor(game.cookies).toLocaleString();
+            updateUI();
+        }, 100);
+
+        // --- LOGIQUE DE LA BOUTIQUE ---
+        function buyUpgrade(type) {
+            let cost = game.prices[type];
+            if (game.cookies >= cost) {
+                game.cookies -= cost;
+                game.upgrades[type]++;
+                
+                // Formule officielle de Cookie Clicker : Le prix augmente de 15% à chaque achat !
+                game.prices[type] = Math.floor(cost * 1.15);
+
+                // Si c'est l'amélioration de clic manuel
+                if (type === 'click') {
+                    game.clickPower++;
+                }
+
+                updateUI();
+                saveGame();
+            }
+        }
+
+        // --- RAFRAÎCHISSEMENT DE L'INTERFACE ---
+        function updateUI() {
+            // Affichage principal
+            document.getElementById('cookie-display').innerText = Math.floor(game.cookies).toLocaleString();
+            document.getElementById('cps-display').innerText = calculateCPS().toLocaleString();
+
+            // Parcourir tous les items de la boutique pour mettre à jour les prix, totaux et boutons
+            for (let type in game.upgrades) {
+                document.getElementById(`count-${type}`).innerText = game.upgrades[type];
+                document.getElementById(`cost-${type}`).innerText = game.prices[type].toLocaleString() + " 🍪";
+                document.getElementById(`buy-${type}`).disabled = game.cookies < game.prices[type];
+            }
+        }
+
+        // Initialisation au démarrage
+        loadGame();
+    </script>
+</body>
+</html>
